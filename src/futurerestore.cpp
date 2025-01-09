@@ -229,20 +229,20 @@ bool futurerestore::init() {
     irecv_device_event_subscribe(&_client->irecv_e_ctx, irecv_event_cb, _client);
     idevice_event_subscribe(idevice_event_cb, _client);
     _client->idevice_e_ctx = (void *)idevice_event_cb;
-    if ((_didInit = getDeviceMode(_client, true) != _MODE_UNKNOWN)) {
+    if ((_didInit = getDeviceMode(false, true) != _MODE_UNKNOWN)) {
         if (!(_client->image4supported = is_image4_supported(_client))) {
             info("[INFO] 32-bit device detected\n");
         } else {
             info("[INFO] 64-bit device detected\n");
         }
     }
-    if(_client) {
-        dfu_client_free(_client);
-    }
-    if(_client) {
-        recovery_client_free(_client);
-    }
-    getDeviceMode(true, true);
+//    if(_client) {
+//        dfu_client_free(_client);
+//    }
+//    if(_client) {
+//        recovery_client_free(_client);
+//    }
+    getDeviceMode(false, true);
 #ifdef __APPLE__
     daemonManager(false);
 #endif
@@ -258,21 +258,19 @@ int futurerestore::getDeviceMode(bool reRequest, bool init) const {
     if(!init) {
       retassure(_didInit, "did not init\n");
     }
+    mutex_lock(&_client->device_event_mutex);
+    cond_wait_timeout(&_client->device_event_cond, &_client->device_event_mutex, 10);
     if (!reRequest && _client->mode && _client->mode->index != _MODE_UNKNOWN) {
-        return _client->mode->index;
+      mutex_unlock(&_client->device_event_mutex);
+      return _client->mode->index;
     } else {
       dfu_client_free(_client);
       recovery_client_free(_client);
-//      if(!dfu_client_new(_client)) {
-//      } else {
-//        if(!recovery_client_new(_client)) {
-//          return _MODE_UNKNOWN;
-//        }
-//      }
       int mode = _MODE_UNKNOWN;
       if (_client->mode) {
         mode = _client->mode->index;
       }
+      mutex_unlock(&_client->device_event_mutex);
       return mode;
     }
 }
