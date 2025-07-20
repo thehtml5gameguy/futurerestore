@@ -55,7 +55,7 @@ jobs:
       - name: Install CMake and dependencies
         run: |
           brew update
-          brew install cmake libplist libimobiledevice libirecovery
+          brew install cmake libplist libimobiledevice libirecovery libzip
 
       - name: Run macOS Bootstrap Script
         run: ${{ github.workspace }}/.github/workflows/mac-bootstrap.sh
