@@ -62,17 +62,9 @@ jobs:
           cd libimobiledevice
           ./autogen.sh --prefix=/usr/local --enable-debug
           make && sudo make install
-      - name: Clone and build libgeneral
-        run: |
-          git clone https://github.com/tihmstar/libgeneral.git
-          cd libgeneral
-          ./autogen.sh
-          ./configure --prefix=/usr/local --with-openssl=/usr/local/opt/openssl
-          make -j$(sysctl -n hw.ncpu)
-          sudo make install
       - name: Build and install libfragmentzip from source
         run: |
-          git clone https://github.com/tihmstar/libfragmentzip.git
+          git clone https://github.com/thehtml5gameguy/libfragmentzip.git
           cd libfragmentzip
           ./autogen.sh
           make
