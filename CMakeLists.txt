@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.19...3.24 FATAL_ERROR)
 set(ignoreMe "${NO_PKGCFG} ${ASAN} ${ASAN_FLAGS} ${ARCH}")
+include_directories(/opt/homebrew/include) 
+link_directories(/opt/homebrew/lib)
 option(SUBPROJECT_BUILD "Enables submodules to build as statically internally linked libs instead of binaries/tools" ON)
 option(ASAN "Enable AddressSanatizer" OFF)
 option(NO_PKGCFG "Disable pkgconfig searching of libs, use dep_root for linking" OFF)
