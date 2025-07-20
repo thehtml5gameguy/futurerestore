@@ -55,7 +55,7 @@ jobs:
         run: ${{ github.workspace }}/.github/workflows/mac-post.sh
 
       - name: Upload Versioning Info
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Versioning
           path: |
