@@ -15,7 +15,7 @@ on:
 
 jobs:
   macOS:
-    runs-on: macos-12
+    runs-on: macos-14
     env:
       PROCURSUS: /opt/procursus
       PATH: /opt/procursus/bin:/opt/procursus/libexec/gnubin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
