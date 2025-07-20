@@ -54,13 +54,20 @@ jobs:
       - name: Install CMake and dependencies
         run: |
           brew update
-          brew install libusbmuxd cmake libplist libirecovery libzip autoconf automake libtool pkg-config libtatsu libfragmentzip
+          brew install libusbmuxd cmake libplist libirecovery libzip autoconf automake libtool pkg-config libtatsu
       - name: Build libimobiledevice from source (if needed)
         run: |
           git clone https://github.com/libimobiledevice/libimobiledevice.git
           cd libimobiledevice
           ./autogen.sh --prefix=/usr/local --enable-debug
           make && sudo make install
+      - name: Build and install libfragmentzip from source
+        run: |
+          git clone https://github.com/tihmstar/libfragmentzip.git
+          cd libfragmentzip
+          ./autogen.sh
+          make
+          sudo make install
 
       - name: Run macOS Bootstrap Script
         run: ${{ github.workspace }}/.github/workflows/mac-bootstrap.sh
