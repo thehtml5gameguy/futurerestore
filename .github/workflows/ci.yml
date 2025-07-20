@@ -63,19 +63,19 @@ jobs:
             ${{ github.workspace }}/latest_build_num.txt
 
       - name: Upload macOS RELEASE Archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: futurerestore-macOS-RELEASE
           path: ${{ github.workspace }}/futurerestore-macOS-*-RELEASE.tar.xz
 
       - name: Upload macOS DEBUG Archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: futurerestore-macOS-DEBUG
           path: ${{ github.workspace }}/futurerestore-macOS-*-DEBUG.tar.xz
 
       - name: Upload macOS ASAN Archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: futurerestore-macOS-ASAN
           path: ${{ github.workspace }}/futurerestore-macOS-*-ASAN.tar.xz
