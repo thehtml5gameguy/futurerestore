@@ -51,11 +51,17 @@ jobs:
             echo "Homebrew not found!" >&2
             exit 1
           fi
+      - name: Build libimobiledevice from source (if needed)
+        run: |
+          git clone https://github.com/libimobiledevice/libimobiledevice.git
+          cd libimobiledevice
+          ./autogen.sh --prefix=/usr/local --enable-debug
+          make && sudo make install
 
       - name: Install CMake and dependencies
         run: |
           brew update
-          brew install cmake libplist libimobiledevice libirecovery libzip
+          brew install cmake libplist libirecovery libzip
 
       - name: Run macOS Bootstrap Script
         run: ${{ github.workspace }}/.github/workflows/mac-bootstrap.sh
