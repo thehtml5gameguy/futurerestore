@@ -54,13 +54,21 @@ jobs:
       - name: Install CMake and dependencies
         run: |
           brew update
-          brew install libusbmuxd cmake libplist libirecovery libzip autoconf automake libtool pkg-config libtatsu libgeneral
+          brew install libusbmuxd cmake libplist libirecovery libzip autoconf automake libtool pkg-config libtatsu openssl
       - name: Build libimobiledevice from source (if needed)
         run: |
           git clone https://github.com/libimobiledevice/libimobiledevice.git
           cd libimobiledevice
           ./autogen.sh --prefix=/usr/local --enable-debug
           make && sudo make install
+      - name: Clone and build libgeneral
+        run: |
+          git clone https://github.com/tihmstar/libgeneral.git
+          cd libgeneral
+          ./autogen.sh
+          ./configure --prefix=/usr/local --with-openssl=/usr/local/opt/openssl
+          make -j$(sysctl -n hw.ncpu)
+          sudo make install
       - name: Build and install libfragmentzip from source
         run: |
           git clone https://github.com/tihmstar/libfragmentzip.git
