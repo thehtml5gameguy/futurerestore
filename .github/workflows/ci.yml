@@ -39,7 +39,11 @@ jobs:
             echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
             eval "$(/opt/homebrew/bin/brew shellenv)"
           fi
-
+      - name: Setup Homebrew PATH
+        run: |
+          echo "Adding Homebrew to PATH"
+          echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $GITHUB_ENV
+          eval "$(/opt/homebrew/bin/brew shellenv)"
       - name: Install CMake and dependencies
         run: |
           brew update
