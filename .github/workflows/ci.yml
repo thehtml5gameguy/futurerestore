@@ -55,7 +55,7 @@ jobs:
         run: |
           brew tap aderuelle/homebrew-tap
           brew update
-          brew install libusbmuxd cmake libplist libirecovery libzip autoconf automake libtool pkg-config libtatsu openssl img4tool
+          brew install libusbmuxd cmake libplist libirecovery libzip autoconf automake libtool pkg-config libtatsu openssl libfragmentzip img4tool
       - name: Build libimobiledevice from source (if needed)
         run: |
           git clone https://github.com/libimobiledevice/libimobiledevice.git
@@ -70,14 +70,6 @@ jobs:
           ./configure --prefix=/usr/local --with-openssl=/usr/local/opt/openssl
           make -j$(sysctl -n hw.ncpu)
           sudo make install
-      - name: Build and install libfragmentzip from source
-        run: |
-          git clone https://github.com/tihmstar/libfragmentzip.git
-          cd libfragmentzip
-          ./autogen.sh
-          make
-          sudo make install
-
       - name: Run macOS Bootstrap Script
         run: ${{ github.workspace }}/.github/workflows/mac-bootstrap.sh
 
