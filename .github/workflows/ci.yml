@@ -41,9 +41,17 @@ jobs:
           fi
       - name: Setup Homebrew PATH
         run: |
-          echo "Adding Homebrew to PATH"
-          echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $GITHUB_ENV
-          eval "$(/opt/homebrew/bin/brew shellenv)"
+          if [ -x /opt/homebrew/bin/brew ]; then
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+            echo "PATH=$PATH" >> $GITHUB_ENV
+          elif [ -x /usr/local/bin/brew ]; then
+            eval "$(/usr/local/bin/brew shellenv)"
+            echo "PATH=$PATH" >> $GITHUB_ENV
+          else
+            echo "Homebrew not found!" >&2
+            exit 1
+          fi
+
       - name: Install CMake and dependencies
         run: |
           brew update
