@@ -54,7 +54,7 @@ jobs:
       - name: Install CMake and dependencies
         run: |
           brew update
-          brew install libusbmuxd cmake libplist libirecovery libzip autoconf automake libtool pkg-config libtatsu
+          brew install libusbmuxd cmake libplist libirecovery libzip autoconf automake libtool pkg-config libtatsu libgeneral
       - name: Build libimobiledevice from source (if needed)
         run: |
           git clone https://github.com/libimobiledevice/libimobiledevice.git
