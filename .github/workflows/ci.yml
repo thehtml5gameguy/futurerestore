@@ -54,8 +54,9 @@ jobs:
       - name: Install CMake and dependencies
         run: |
           brew tap aderuelle/homebrew-tap
+          brew tap stek29/homebrew-idevice 
           brew update
-          brew install libusbmuxd cmake libplist libirecovery libzip autoconf automake libtool pkg-config libtatsu openssl libgeneral img4tool
+          brew install libusbmuxd cmake libplist libirecovery libzip autoconf automake libtool pkg-config libtatsu openssl libgeneral aderuelle/tap/img4tool libipatcher
       - name: Build libimobiledevice from source (if needed)
         run: |
           git clone https://github.com/libimobiledevice/libimobiledevice.git
